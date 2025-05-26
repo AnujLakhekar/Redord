@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  user-select: none;
+  webkit-user-drag: none;
+  webkit-user-modify: none;
+}
