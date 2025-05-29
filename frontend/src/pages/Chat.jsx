@@ -81,17 +81,17 @@ function Chat() {
           <div className="relative w-full flex flex-col gap-2.5">
           <div className="flex items-center gap-2.5">
            <img className="w-8 h-8  rounded-full" src={msg?.user.avatar || "./avatar-placeholder.png"} alt={msg?.user.name}/>
-           <p style={{color: "msg?.user.?role?.color "}} key={index}>{msg?.user.name}</p>
+           <p style={{color: "msg?.user.?role?.color"}} key={index}>{msg?.user.name}</p>
            </div>
            
           <div className="ml-1 w-full p-2 bg-base-100 rounded-lg">
           <div className="relative flex justify-start items-center" >
           <p>{msg?.content}</p>
           <div className="absolute right-0 flex flex-col">
-          {msg.user.name == authUser.username &&         <div className="group relative">
+          {msg?.user?.name == authUser?.username && <div className="group relative">
           <CiMenuKebab />
           <div className="p-2 m-2 absolute left-[-70px] bg-base-300 hidden group-hover:flex flex-col">
-          <button  onClick={() => deleteMsg(msg._id)}>Delete</button>
+          <button  onClick={() => deleteMsg(msg?._id)}>Delete</button>
           </div>
           </div>}
            </div>

@@ -31,8 +31,8 @@ function Settings() {
        imagUrl = e.target.result;
        const ImageArr = {
          src: imagUrl,
-         name: file.name,
-         type: file.type,
+         name: file.name.split(".")[0],
+         type: file.type.split("/")[1]
        }
       setImage(ImageArr);
     }
@@ -75,8 +75,8 @@ function Settings() {
         {Image ?  <div className="relative border flex overflow-scroll  justify-center items-center object-cover  rounded-lg border-2 border-gray-700/30 " >
         <img className="w-12  h-12 m-2 rounded-full  h-auto" src={Image.src} />
         <div  >
-        <h3 className="text-[10px]">{Image.name.split(".")[0]}</h3>
-        <h3 className="text-sm">{Image.type.split("/")[1]}</h3>
+        <h3 className="text-[10px]">{Image?.name}</h3>
+        <h3 className="text-sm">{Image?.type}</h3>
         </div>
         <div className="absolute bg-amber-50 top-0 right-0 rounded-full p-1" >
         <X color="black" onClick={() => setImage(null)} />

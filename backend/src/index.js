@@ -11,7 +11,7 @@ import {app, http, io} from "./controllers/message.controller.js"
 const PORT = 4000;
 config()
 app.use(cors({
-  origin: "https://redord.onrender.com",
+  origin: ["https://redord.onrender.com", "http://localhost:3000"],
   credentials: true
 }))
 app.use(express.json({limit: "10mb"}))

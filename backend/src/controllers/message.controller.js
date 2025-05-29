@@ -10,7 +10,7 @@ const app = express();
 const http = createServer(app);
 const io = new Server(http, {
   cors: {
-    origin: "https://redord.onrender.com",
+    origin: ["https://redord.onrender.com", "http://localhost:3000"],
   },
 });
 
