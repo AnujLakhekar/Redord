@@ -18,7 +18,7 @@ function App() {
   const { data, isLoading, error } = useQuery({
     queryKey: ['authUser'],
     queryFn: async () => {
-      const res = await fetch('http://localhost:4000/api/auth/me', {
+      const res = await fetch('https://redordbackend.onrender.com/api/auth/me', {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

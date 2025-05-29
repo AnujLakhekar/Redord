@@ -21,7 +21,7 @@ function Chat() {
     queryKey: ['messages'],
     queryFn: async () => {
       try {
-        const res = await fetch(`http://localhost:4000/api/messages/${id}`, {
+        const res = await fetch(`https://redordbackend.onrender.com/api/messages/${id}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

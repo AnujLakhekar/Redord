@@ -4,7 +4,7 @@ let socket = null;
 
 export const initSocket = (userId) => {
   if (!socket && userId) {
-    socket = io("http://localhost:4000", {
+    socket = io("https://redordbackend.onrender.com", {
       query: { user: userId },
       transports: ["websocket"],
     });
