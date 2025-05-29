@@ -1,0 +1,22 @@
+{
+  "name": "redord",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "NODE_ENV=devlopement nodemon backend/src/index.js",
+    "start": "NODE_ENV=production npm install --prefix backend  && node backend/src/index.js",
+    "build": "npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AnujLakhekar/Redord.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AnujLakhekar/Redord/issues"
+  },
+  "homepage": "https://github.com/AnujLakhekar/Redord#readme"
+}

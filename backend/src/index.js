@@ -6,16 +6,8 @@ import messageRoute from "./routes/Message.route.js"
 import cors from "cors"
 import cookieParser from "cookie-parser"
 import {v2 as cloudinary} from "cloudinary"
-import { createServer } from "http";
-import { Server } from "socket.io";
+import {app, http, io} from "./controllers/message.controller.js"
 
-const app = express();
-const http = createServer(app);
-const io = new Server(http, {
-  cors: {
-    origin: "*",
-  }
-})
 const PORT = 4000;
 config()
 app.use(cors({
@@ -26,9 +18,9 @@ app.use(express.json({limit: "10mb"}))
 app.use(cookieParser())
 
 cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
+  cloud_name: "ddmvyw1of",
+  api_key: "828494828935913",
+  api_secret: "SEoHBbPrIRVA7Qn6lH-QzucnlXU",
 });
 const originalLOG = console.log;
 const originalERROR = console.error;
@@ -43,7 +35,11 @@ console.error = function (...arg) {
 connect()
 
 app.use("/api/auth", authRoutes)
-app.use("/api/message", messageRoute)
+app.use("/api/messages", messageRoute)
+
+
+// socket implimentation
+
 
 http.listen(PORT, () => {
   console.log("server started on ", PORT)

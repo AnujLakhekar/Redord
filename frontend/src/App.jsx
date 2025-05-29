@@ -4,12 +4,16 @@ import { useNavigate, Navigate } from 'react-router-dom';
 import { Route, Routes } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import {Sidebar} from "./components/"
-
+import { io } from "socket.io-client";
 // pages
-import { HomePage, Auth, Settings } from './pages';
+import {initSocket} from "./Socket.js"
+import { HomePage, Auth, Settings, Chat } from './pages';
 
 function App() {
   const [authUser, setAuthUser] = useState(null);
+
+   let socket;
+
   
   const { data, isLoading, error } = useQuery({
     queryKey: ['authUser'],
@@ -23,8 +27,9 @@ function App() {
       });
 
       const data = await res.json();
-
       if (!res.ok || data.error) return null;
+      
+      initSocket(data._id)
 
       return data;
     },
@@ -39,6 +44,9 @@ function App() {
       setAuthUser(null);
     }
   }, [data]);
+   
+  
+
 
   if (isLoading) return <div className="w-full h-screen flex justify-center items-center"><span className="loader loader-lg"></span></div>;
 
@@ -49,12 +57,17 @@ function App() {
           <Routes>
       <Route path="/" element={authUser ? (
       <div className="flex">
-      <Sidebar />
+      <Sidebar  />
       <HomePage />
       </div>) : <Navigate to="login" />} />
             <Route path="/login" element={authUser ? <Navigate to="/" /> : <Auth type="login" />} />
             <Route path="/signup" element={authUser ? <Navigate to="/" /> : <Auth type="signup" />} />
             <Route path="*" element={<h3>No Page found</h3>} />
+      <Route path="/chat/:id" element={authUser ? (
+      <div className="flex">
+      <Sidebar />
+      <Chat />
+      </div>) : <Navigate to="/login" />} />
             <Route path="/settings" element={
             <div className="flex">
             {authUser &&             <Sidebar />}

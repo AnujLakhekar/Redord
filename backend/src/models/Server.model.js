@@ -11,7 +11,7 @@ const ServerSchema = new mongoose.Schema({
   },
   ownerId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'DiscordUser',
+    ref: 'User',
     required: true
   },
   icon: {

@@ -5,14 +5,17 @@ const MessageSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: true
+  user: {
+  name:{
+    type: String,
+  },
+  avatar:{
+    type: String,
+  },
   },
   channelId: {
     type: String,
-    required: true
+    default: null
   },
   guildId: {
     type: String,
@@ -34,7 +37,7 @@ const MessageSchema = new mongoose.Schema({
     type: [{
       emoji: String,
       count: { type: Number, default: 1 },
-      users: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+      users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }]
     }],
     default: []
   }
