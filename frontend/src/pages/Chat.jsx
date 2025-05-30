@@ -77,7 +77,7 @@ function Chat() {
   const {mutate:deleteMsgFunc, isPending:isDeleting} = useMutation({
     mutationFn: async (id) => {
       try {
-        const res = await fetch(`http://localhost:3000/api/messages/delete/${id}`, {
+        const res = await fetch(`https://redordbackend.onrender.com/api/messages/delete/${id}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"

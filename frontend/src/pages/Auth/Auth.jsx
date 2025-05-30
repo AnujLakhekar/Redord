@@ -18,7 +18,7 @@ function Auth({ type }) {
 
   const mutation = useMutation({
     mutationFn: async (formData) => {
-      const url = `http://localhost:3000/api/auth/${type}`;
+      const url = `https://redordbackend.onrender.com/api/auth/${type}`;
       const res = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -46,7 +46,7 @@ function Auth({ type }) {
 
   const handleLoginSuccess = async (credentialResponse) => {
     try {
-      const res = await fetch('http://localhost:3000/api/auth/google', {
+      const res = await fetch('https://redordbackend.onrender.com/api/auth/google', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include', // ✅ so cookie will be stored
