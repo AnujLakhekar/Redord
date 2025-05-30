@@ -88,7 +88,7 @@ function Chat() {
         const data = await res.json()
         
         setChat(data.message)
-        
+        queryClient.invalidateQueries({ queryKey: ['messages'] });
         return data
       }
       catch (e) {
