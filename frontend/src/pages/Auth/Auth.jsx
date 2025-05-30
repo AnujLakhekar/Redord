@@ -30,7 +30,7 @@ function Auth({ type }) {
       return data;
     },
     onSuccess: () => {
-      navigate("/");
+      window.location.href = "/"
     }
   });
 
@@ -59,13 +59,8 @@ function Auth({ type }) {
         return;
       }
 
-      // If using cookie:
-      const jwt = Cookies.get('jwt');
-      if (jwt || data.token) {
-        navigate("/");
-      } else {
-        setGoogleError("Token not received");
-      }
+       window.location.href = "/"
+    
     } catch (err) {
       setGoogleError(err.message || "Google login error");
     }
