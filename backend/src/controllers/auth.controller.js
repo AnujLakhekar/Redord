@@ -191,3 +191,15 @@ export const googleLogin = async (req, res) => {
   }
 };
 
+export const logout = async (req, res) => {
+  try {
+ res.clearCookie("jwt", {
+ path: "/",
+ sameSite: "None",
+ secure: true,
+});
+ res.status(200).json({ message: "Logged out" });
+  } catch (e) {
+    console.log(e.message)
+  }
+}

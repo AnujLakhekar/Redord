@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import {useMutation} from "@tanstack/react-query"
 import { useQueryClient, useQuery } from '@tanstack/react-query';
 import { LogOut, Plus, Settings } from 'lucide-react';
 import Cookies from "js-cookie";
@@ -33,9 +34,24 @@ function Sidebar() {
     };
   });
 
+  const {mutate:logout, isPending:logingOut} = useMutation({
+    mutationFn: async () => {
+      try {
+        const res = await fetch("https://redordbackend.onrender.com/api/auth/logout", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+          },
+        credentials: 'include',
+      })
+      } catch (e) {
+        throw new Error(e.message)
+      }
+    }
+  })
+
   const handleLogout = () => {
-    Cookies.remove("jwt");
-    window.location.reload();
+    logout()
   };
 
   const handleNewServer = () => {
