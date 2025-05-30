@@ -43,6 +43,24 @@ router.post("/:id", ProtectRoute , async (req, res) => {
   }
 })
 
+router.post("/delete/:id", ProtectRoute , async (req,res) => {
+  try {
+    const {id} = req.params;
+    const user = req.user;
+    
+    if (!user) return res.status(400).json({
+      message: "unauthorized token"
+    })
+    
+    const msg = await Messages.findOneAndDelete({_id: id})
+    
+    console.log(msg)
+  
+  } catch (e) {
+    
+  }
+})
+
 router.get("/online", ProtectRoute , (req, res) => {
   try {
     

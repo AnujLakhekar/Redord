@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 import { io } from "socket.io-client";
 // pages
@@ -11,6 +11,7 @@ import {getSocket} from "../Socket.js"
 function Chat() {
   const [message, setMessage] = useState("");
   const {id} = useParams()
+  const chatRef = useRef(null)
   const [chat, setChat] = useState([]);
   const queryClient = useQueryClient();
   const authUser = queryClient.getQueryData(["authUser"]);
@@ -21,7 +22,7 @@ function Chat() {
     queryKey: ['messages'],
     queryFn: async () => {
       try {
-        const res = await fetch(`https://redordbackend.onrender.com/api/messages/${id}`, {
+        const res = await fetch(`http://localhost:3000/api/messages/${id}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json"
@@ -58,6 +59,12 @@ function Chat() {
       };
     }
   }, [authUser]);
+  
+  useEffect(() => {
+    if (chatRef.current) {
+      chatRef.current.scrollIntoView({ behavior: 'smooth' });
+      }
+  }, [message])
 
   const sendMessage = (e) => {
     e.preventDefault();
@@ -67,15 +74,38 @@ function Chat() {
     }
   };
   
+  const {mutate:deleteMsgFunc, isPending:isDeleting} = useMutation({
+    mutationFn: async (id) => {
+      try {
+        const res = await fetch(`http://localhost:3000/api/messages/delete/${id}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          credentials: 'include'
+        })
+        
+        const data = await res.json()
+        
+        setChat(data.message)
+        
+        return data
+      }
+      catch (e) {
+        throw new Error(e.message)
+      }
+    }
+  })
+  
   
   function deleteMsg(msgId) {
-    console.log(msgId)
+     deleteMsgFunc(msgId)
   }
 
 
   return (
     <div className="w-full relatibe">
-      <div className="w-full h-[80vh] overflow-hidden overflow-y-scroll">
+      <div  className="w-full h-[80vh] overflow-hidden overflow-y-scroll">
         {chat.map((msg, index) => (
           <div key={index} className="duration-300 ease-in  w-full flex columns-1 min-h-[50px] gap-2.5 p-2 bg-base-200 items-center justify-start border  border-transparent border-t-gray-500/30">
           <div className="relative w-full flex flex-col gap-2.5">
@@ -109,6 +139,7 @@ function Chat() {
           </div>
           </div>
         ))}
+        <div ref={chatRef} ></div>
       </div>
       <div className="absolute bottom-0 p-4 bg-base-100 border border-t-primary/50 flex flex-col border-transparent ">
       <form onSubmit={sendMessage}>

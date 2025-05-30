@@ -83,7 +83,8 @@ export const signup = async (req, res) => {
     });
 
     await newUser.save();
-  const token =  generateToken(res, newUser._id);
+  
+   generateToken(res, newUser._id);
 
     res.status(201).json({
       message: {
@@ -93,7 +94,6 @@ export const signup = async (req, res) => {
           avatar: newUser.avatar,
           joinedAt: newUser.joinedAt,
           roles: newUser.roles,
-          token: token
         },
       },
     });
@@ -117,7 +117,7 @@ export const login = async (req, res) => {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
-   const token =  generateToken(res, user._id);
+    generateToken(res, user._id);
 
     res.status(200).json({
       message: {
@@ -127,7 +127,6 @@ export const login = async (req, res) => {
           avatar: user.avatar,
           joinedAt: user.joinedAt,
           roles: user.roles,
-          token: token
         },
       },
     });
@@ -175,7 +174,7 @@ export const googleLogin = async (req, res) => {
       });
     }
 
-   const token = generateToken(res, user._id);
+    generateToken(res, user._id);
 
     res.status(200).json({ message: {
         client: {
@@ -184,7 +183,6 @@ export const googleLogin = async (req, res) => {
           avatar: user.avatar,
           joinedAt: user.joinedAt,
           roles: user.roles,
-          token: token
         },
       }, });
   } catch (err) {

@@ -11,8 +11,6 @@ function genrateToken(res, userId) {
    sameSite: "None",
    secure: true,
  });
- 
- return token
 }
 
 
